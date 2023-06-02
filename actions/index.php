@@ -18,7 +18,7 @@ function index_ALL(Web $w) {
     //with buttons to delete
 
     $table = [];
-    $tableHeaders = ['Name' , 'Client', 'File Name', 'Actions'];
+    $tableHeaders = ['Name' , 'Client', 'File Name','Date Created', 'Actions'];
     if (!empty($attachments)) {
         foreach ($attachments as $attachment) {
             $row = [];
@@ -39,3 +39,6 @@ function index_ALL(Web $w) {
 
 
 }
+
+
+

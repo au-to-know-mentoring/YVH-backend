@@ -19,6 +19,7 @@ class VirtualhomeinitialMigration extends CmfiveMigration
                     ->addStringColumn('name')
                     ->addStringColumn('client_name')
                     ->addIdColumn('attachment_id')
+                    ->addIdColumn('dt_created')
                     ->addCmfiveParameters() // this function adds some standard columns used in cmfive. dt_created, dt_modified, creator_id, modifier_id, and is_deleted.
                     ->create();
                 }
