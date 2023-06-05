@@ -18,7 +18,7 @@ function index_ALL(Web $w) {
     //with buttons to delete
 
     $table = [];
-    $tableHeaders = ['Name' , 'Client', 'File Name','Date Created', 'Actions'];
+    $tableHeaders = ['Name' , 'Client', 'File Name', 'Actions'];
     if (!empty($attachments)) {
         foreach ($attachments as $attachment) {
             $row = [];
@@ -27,6 +27,7 @@ function index_ALL(Web $w) {
             $row[] = $attachment->filename;
             $actions = [];
             $actions[] = Html::b('/virtualhome/delete/' . $attachment->id, 'Delete', 'Are you sure you want to Delete this model?');
+            $actions[] = Html::box('/virtualhome/getCode/' . $attachment->id, 'Get Code');
             $row[] = implode($actions);
             $table[] = $row;
         }

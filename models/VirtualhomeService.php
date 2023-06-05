@@ -18,7 +18,7 @@ class VirtualhomeService extends DbService {
             // manager menu links
             if ($user->hasRole('architect')) {
                 $w->menuLink("/virtualhome/index", "Virtual Home", $nav);
-                $w->menuLink("/virtualhome/index", "Download Code", $nav);
+                $w->menuLink("/virtualhome/index", "Download Code", $nav);  
             }
             
         }
