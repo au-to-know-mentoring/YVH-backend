@@ -46,7 +46,7 @@
                         description: null,
                         file: null,
                         is_restricted: false,
-                        max_upload_size: "<?php echo @$w->File->getMaxFileUploadSize() ?: (2 * 1024 * 1024); ?>",
+                        max_upload_size: "<?php echo FileService::getInstance($w)->getMaxFileUploadSize() ?: (2 * 1024 * 1024); ?>",
                         class: "<?php echo $class; ?>",
                         class_id: "<?php echo $class_id; ?>",
                         redirect_url: "<?php echo $redirect_url; ?>",
@@ -57,12 +57,14 @@
                         this.file = this.$refs.file.files[0];
                     },
                     uploadFile: function() {
+                        console.log("Here");
                         if (this.file === null) {
                             new Toast("No file selected").show();
                             return;
                         }
 
                         if (this.file.size > this.max_upload_size) {
+                            console.log(this.file.size);
                             new Toast("File size is too large").show();
                             return;
                         }
@@ -91,6 +93,7 @@
                                 }
                             }
                         ).then(function(response) {
+                            console.log("Here");
                             window.history.go();
                         }).catch(function(error) {
                             new Toast("Failed to upload file").show();
@@ -98,6 +101,7 @@
                         }).finally(function() {
                             hideModalLoading();
                         });
+                        
                     }
                 }
             });

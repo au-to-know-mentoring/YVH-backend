@@ -4,6 +4,7 @@ function addModel_GET(Web $w) {
     $loggedInUser = AuthService::getInstance($w)->User();
     $w->ctx("userId", $loggedInUser->id);
     $userContact = $loggedInUser->getContact();
+    
 
     $w->ctx('title','Hello ' . $userContact->getFullName());
 
@@ -24,11 +25,11 @@ function addModel_GET(Web $w) {
 
     $w->ctx('redirect_url', '/virtualhome/index');
 
-    //$w->ctx('model_form', Html::multiColForm($form, '/virtualhome/addModel',));
-
+  
 
 
 }
+
 
 
 function addModel_POST(Web $w) {

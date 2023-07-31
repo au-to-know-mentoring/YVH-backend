@@ -28,6 +28,7 @@ function index_ALL(Web $w) {
             $actions = [];
             $actions[] = Html::b('/virtualhome/delete/' . $attachment->id, 'Delete', 'Are you sure you want to Delete this model?');
             $actions[] = Html::box('/virtualhome/getCode/' . $attachment->id, 'Get Code');
+            
             $row[] = implode($actions);
             $table[] = $row;
         }
@@ -35,7 +36,7 @@ function index_ALL(Web $w) {
 
     $w->ctx("table",Html::table($table,null,"tablesorter",$tableHeaders));
 
-    // echo "<pre>";
+    //echo "<pre>";
     // var_dump($table);
 
 

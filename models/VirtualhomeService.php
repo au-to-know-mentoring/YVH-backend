@@ -13,17 +13,22 @@ class VirtualhomeService extends DbService {
 
         $nav = $nav ? $nav : [];
 
-        if ($w->Auth->loggedIn()) {
+        if (AuthService::getInstance($w)->loggedIn()) {
             $user = AuthService::getInstance($w)->user();
             // manager menu links
             if ($user->hasRole('architect')) {
-                $w->menuLink("/virtualhome/index", "Virtual Home", $nav);
-                $w->menuLink("/virtualhome/index", "Download Code", $nav);  
+               $w->menuLink("/virtualhome/index", "Virtual Home", $nav);
+               $w->menuLink("/virtualhome/index", "Download Code", $nav);  
             }
             
         }
         $w->ctx("navigation", $nav);
         return $nav;
     }
+    public function getCode($where = [])
+    {
+        $where["is_deleted"] = 0;
 
+        return $this->getObjects("Code", $where);
+    }
 }
