@@ -1,29 +1,70 @@
 
 <?php
-  
- function getCode_ALL(Web $w) {
-    function printCode() {
 
-        $user_id = rand(10,99);        // makes random number from variable
-        $attachment_id = rand(10,99);
-        $dt_created = rand(10,99);
-    
-    
-         $message = 'Here is your code ';
-         echo($message);
-    
-    
-        $string1 = (rand($user_id , $user_id));   // takes the random number and echo's it
-        echo $string1;
-        $string2 = (rand($attachment_id, $attachment_id));
-        echo $string2;
-        $string3 = (rand($dt_created, $dt_created));
-        echo $string3;
-    
-        return $string1.$string2.$string3;
-        
+use Html\Form\InputField\Date;
+
+ function getCode_ALL(Web $w) {
+
+    $p = $w->pathMatch('attachment_id');
+    if (empty($p['attachment_id'])) {
+        $w->error('No model Id found ', '/virtualhome');
     }
-    printCode();
+
+    $attachment = FileService::getInstance($w)->getAttachment($p['attachment_id']);
+    if (empty($attachment)) {
+        $w->error('no model found for id', '/virtualhome');
+    }
+    // get logged in user
+    // check attachment object id == loged in user id
+    //
+    $user = AuthService::getInstance($w)->user();
+
+    if ($user->id != $attachment->parent_id) {
+        $w->error("This model doesn't belong to you", '/virtualhome');
+    }
+
+    $downloadcode = VirtualhomeService::getInstance($w)->getCodeForAttachmentId($attachment->id);
+    if (empty($downloadcode)) {
+        $downloadcode = new VirtualhomeDownloadCode($w);
+        $downloadcode->virtualhomemodel_id = $attachment->id;
+    }
+
+
+   
+    
+    
+
+    $message = 'Here is your code ';
+    echo($message);
+    
+    $code = random_int(100000, 999999);
+    echo $code;
+
+
+
+
+    
+
+
+    
+    //GETDATE()
+    $downloadcode->code = $code;
+    $dt_object =  new DateTime("now"); //dt_generated
+    // 'Y-m-d H:i:s'
+    $downloadcode->dt_generated = $dt_object->format("Y-m-d H:i:s");
+    $downloadcode->insertOrUpdate();
+    //echo "<br>";
+  
+    
+    //$downloadcode->dt_generated = $dt_object->date("Y-m-d H:i:s");
+
+    
+   
+   
+
+    
+        
+    
     //echo "<script>
     //{$code};
     //</script>"; // working dbug
@@ -31,29 +72,7 @@
 }
 
 
-    function getCode_POST(web $w) {
-
-        echo $GLOBALS['a'];
-
-
-
    
-	
-        $task = (!empty($p["id"]) ? VirtualhomeDownloadCode::getInstance($w)->getCode($p["id"]) : new VirtualhomeDownloadCode($w));
-    
-        $p = $w->pathMatch("id");
-        $task = new Task($w);  
-    
-        //$task->fill($_POST); ///broken
-  
-        $task->insertOrUpdate(true); // broken
-
-    
-      
-    
-
- 
-    }
 
 ?>
 

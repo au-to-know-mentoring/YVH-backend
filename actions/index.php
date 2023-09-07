@@ -26,8 +26,11 @@ function index_ALL(Web $w) {
             $row[] = $attachment->description;
             $row[] = $attachment->filename;
             $actions = [];
-            $actions[] = Html::b('/virtualhome/delete/' . $attachment->id, 'Delete', 'Are you sure you want to Delete this model?');
-            $actions[] = Html::box('/virtualhome/getCode/' . $attachment->id, 'Get Code');
+            $actions[] = Html::box('/virtualhome/getCode/' . $attachment->id, 'Generate Code',  true);
+            $actions[] = Html::b('/virtualhome/delete/' . $attachment->id, 'Delete', 'Are you sure you want to Delete this model?', null, false, 'warning');
+            $actions[] = html::b('/virtualhome-remote/getModel/' . $attachment->id, 'Get Model');
+            
+
             
             $row[] = implode($actions);
             $table[] = $row;

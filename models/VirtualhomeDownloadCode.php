@@ -2,19 +2,16 @@
 
 class VirtualhomeDownloadCode extends DbObject {
 
-    public $user_id; // this user is the architect
-    public $name;
-    public $client_name;
-    public $attachment_id;
+    public $virtualhomemodel_id; // this user is the architect // $user_id
     public $dt_generated;
     public $code;
 
-    
-    public function getCode($id)
-    {
-        
+    public $dt_modified;
 
-        return $this->getObjects("Code", $id);
-    }
+    
+    
+    
+
+    
     
 }
