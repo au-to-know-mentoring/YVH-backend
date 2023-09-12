@@ -14,6 +14,16 @@ class VirtualhomeService extends DbService {
         
 
     }
+    public function getTask($id)
+    {
+        return $this->getObject("VirtualhomeModel", $id);
+        //return $this->getObject("VirtualhomeModel", ['is_deleted'=>0, 'attachment_id'=>$id]);
+    }
+    public function getModelID($attachment_id)
+    {
+        return $this->getObject("VirtualhomeModel", ['is_deleted'=>0, 'attachment_id'=>$attachment_id]);
+    }
+  
     // public function getCodeForObjectTest($dt_generated) {
     //     return $this->getObject('VirtualhomeDownloadCode', ['is_deleted'=>0, 'dt_generated'=>$dt_generated]);
     // }

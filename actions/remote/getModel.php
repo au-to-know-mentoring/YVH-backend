@@ -24,29 +24,38 @@ function getModel_ALL(Web $w)
 
 
 
-
-
+    $stopWach = gettimeofday(true);
+    
+    
     echo date('Y-m-d H:i:s', time()); //- $downloadcode->dt_generated;
     echo '<br><br>';
     echo date('Y-m-d H:i:s', $downloadcode->dt_generated);
     echo '<br>';
-    echo formatDate($downloadcode->dt_modified);
+    //echo formatDate($downloadcode->dt_modified);
+    echo date($downloadcode->dt_generated);
+    echo '<br>';
+    echo 'lol';
+    echo '<br>';
+    echo $stopWach; 
+    echo '<br>';
+    echo $downloadcode->virtualhomemodel_id;
+    //echo formatTime($stopWach, "H:i")
     
-    echo '<br>';
-    echo $downloadcode->dt_generated;
-    //echo $downloadcode->dt_generated->timetostr("now");
-    //echo $downloadcode->dt_generated->strtotime(date("Y-m-d H:i:s"));
-    echo '<br>';
+//     echo '<br>';
+//     echo $downloadcode->dt_generated;
+//     //echo $downloadcode->dt_generated->timetostr("now");
+//     //echo $downloadcode->dt_generated->strtotime(date("Y-m-d H:i:s"));
+//     echo '<br>';
     
-    echo strtotime(date("Y-m-d H:i:s"));
-    echo '<br>';
-    //echo strtotime("Y-m-d H:i:s");
-    echo '<br>';
-    echo $downloadcode->dt_created;
-    echo '<br>';
-   // $date = date_create($downloadcode->dt_generated, timezone_open('Australia/Sydney'));
-    //echo date_format($date, 'Y-m-d H:i:sP') . "\n";
-    echo '<br>';
+//     //echo strtotime(date("Y-m-d H:i:s"));
+//     echo '<br>';
+//     //echo strtotime("Y-m-d H:i:s");
+//     echo '<br>';
+//     echo $downloadcode->dt_created;
+//     echo '<br>';
+//    // $date = date_create($downloadcode->dt_generated, timezone_open('Australia/Sydney'));
+//     //echo date_format($date, 'Y-m-d H:i:sP') . "\n";
+//     echo '<br>';
 
 
     

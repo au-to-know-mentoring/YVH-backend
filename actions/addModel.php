@@ -7,6 +7,8 @@ function addModel_GET(Web $w) {
     
 
     $w->ctx('title','Hello ' . $userContact->getFullName());
+    
+    
 
     $form = [
         'Model Upload' => [
@@ -19,22 +21,25 @@ function addModel_GET(Web $w) {
             ]
         ]
     ];
-
+   
     $w->ctx('class', 'User');
     $w->ctx('class_id', $loggedInUser->id);
 
+   
+
     $w->ctx('redirect_url', '/virtualhome/index');
 
-  
-
-
+   
+    
+    
+    
 }
 
 
 
 function addModel_POST(Web $w) {
 
-    echo '<pre>';
-    var_dump($_POST); die;
-
+     //echo '<pre>';
+     // var_dump($form); die;
+     //print("hello");
 }

@@ -27,8 +27,10 @@ function index_ALL(Web $w) {
             $row[] = $attachment->filename;
             $actions = [];
             $actions[] = Html::box('/virtualhome/getCode/' . $attachment->id, 'Generate Code',  true);
-            $actions[] = Html::b('/virtualhome/delete/' . $attachment->id, 'Delete', 'Are you sure you want to Delete this model?', null, false, 'warning');
+            $actions[] = Html::b('/virtualhome-remote/delete/' . $attachment->id, 'Delete', 'Are you sure you want to Delete this model?', null, false, 'warning');
             $actions[] = html::b('/virtualhome-remote/getModel/' . $attachment->id, 'Get Model');
+           
+            //$actions[] = html::box('/school/getSchoolCode/' . $attachment->id, 'Get Code');
             
 
             

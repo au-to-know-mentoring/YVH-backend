@@ -48,9 +48,13 @@ use Html\Form\InputField\Date;
 
     
     //GETDATE()
-    $downloadcode->code = $code;
-    $dt_object =  new DateTime("now"); //dt_generated
+    
+     $dt_object =  new DateTime("UTC"); //dt_generated gettimeofday(true)
+    
+    
+    //$dt_object = $downloadcode->dt_generated->DateTime("Y-m-d H:i:s");
     // 'Y-m-d H:i:s'
+    $downloadcode->code = $code;
     $downloadcode->dt_generated = $dt_object->format("Y-m-d H:i:s");
     $downloadcode->insertOrUpdate();
     //echo "<br>";

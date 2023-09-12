@@ -17,7 +17,8 @@ class VirtualhomeDownloadCode extends CmfiveMigration
             ])->addColumn($column)
               ->addColumn('virtualhomemodel_id', 'biginteger') // user_id
               ->addColumn('code', 'string')
-              ->addColumn('dt_generated', 'datetime')
+              //->addColumn('dt_generated', 'datetime')
+              ->addTimestamps('dt_generated', 'time')
               ->addCmfiveParameters()
               ->create();
         }
