@@ -2,7 +2,7 @@
 
 function index_ALL(Web $w) {
     $w->ctx("title", "Your Virtual Home");
-
+    
     $loggedInUser = AuthService::getInstance($w)->User();
     $w->ctx("userId", $loggedInUser->id);
     $userContact = $loggedInUser->getContact();
@@ -10,7 +10,8 @@ function index_ALL(Web $w) {
     $w->ctx("User_name", $userContact->getFullName());
 
     $attachments = FileService::getInstance($w)->getAttachments('User', $loggedInUser->id);
-
+    
+    //var_dump($downloadcode->code);
     //var_dump($attachments); 
 
 
@@ -28,7 +29,9 @@ function index_ALL(Web $w) {
             $actions = [];
             $actions[] = Html::box('/virtualhome/getCode/' . $attachment->id, 'Generate Code',  true);
             $actions[] = Html::b('/virtualhome-remote/delete/' . $attachment->id, 'Delete', 'Are you sure you want to Delete this model?', null, false, 'warning');
-            $actions[] = html::b('/virtualhome-remote/getModel/' . $attachment->id, 'Get Model');
+            
+            $actions[] = html::b('/virtualhome-remote/getModel/' . $attachment->virtualhome_id, 'Get Model');
+            $actions[] = html::b('/virtualhome-remote/download/' . $attachment->id, 'Download');
            
             //$actions[] = html::box('/school/getSchoolCode/' . $attachment->id, 'Get Code');
             
@@ -43,6 +46,8 @@ function index_ALL(Web $w) {
 
     //echo "<pre>";
     // var_dump($table);
+
+  
 
 
 }

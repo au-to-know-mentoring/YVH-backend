@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 function getModel_ALL(Web $w)
 {
     
@@ -14,112 +17,63 @@ function getModel_ALL(Web $w)
     if (empty($downloadcode)) {
         $w->error('no model found for id', '/virtualhome');
     }
-   
-
-
-
-
-   
-
-
-
-
-    $stopWach = gettimeofday(true);
+    //var_dump($downloadcode->code);
     
     
-    echo date('Y-m-d H:i:s', time()); //- $downloadcode->dt_generated;
-    echo '<br><br>';
-    echo date('Y-m-d H:i:s', $downloadcode->dt_generated);
-    echo '<br>';
-    //echo formatDate($downloadcode->dt_modified);
-    echo date($downloadcode->dt_generated);
-    echo '<br>';
-    echo 'lol';
-    echo '<br>';
-    echo $stopWach; 
-    echo '<br>';
-    echo $downloadcode->virtualhomemodel_id;
-    //echo formatTime($stopWach, "H:i")
-    
-//     echo '<br>';
-//     echo $downloadcode->dt_generated;
-//     //echo $downloadcode->dt_generated->timetostr("now");
-//     //echo $downloadcode->dt_generated->strtotime(date("Y-m-d H:i:s"));
-//     echo '<br>';
-    
-//     //echo strtotime(date("Y-m-d H:i:s"));
-//     echo '<br>';
-//     //echo strtotime("Y-m-d H:i:s");
-//     echo '<br>';
-//     echo $downloadcode->dt_created;
-//     echo '<br>';
-//    // $date = date_create($downloadcode->dt_generated, timezone_open('Australia/Sydney'));
-//     //echo date_format($date, 'Y-m-d H:i:sP') . "\n";
-//     echo '<br>';
+    // $code = $downloadcode->code;
+    // // echo $code;
+    // // echo "<br>";
+    //  $code = $downloadcode->virtualhomemodel_id;
+    // // echo $code;
+    // // echo "<br>";
+    // // $var1 = (string) $code;
+    //  $var2 = strval($code);
+    //  $link = '/virtualhome-remote/download/';
+    // // //echo ( '/virtualhome-remote/download/' +  $linkcode);   
+    // // echo $var1;
+    // // echo $var2;
+    // // echo $link . $var2;
+    //  $linkto = $link . $var2;
+    // // //$w->ctx('redirect_url', '/virtualhome-remote/download/');
+    // // echo "<br>";
+    // // echo $linkto;
+    // if ($code = $downloadcode->code) {
+    //     $code = $downloadcode->virtualhomemodel_id;
+    //     if ($code = $downloadcode->virtualhomemodel_id) {
+    //         //echo "LOL";
+    //         //$w->ctx('redirect_url', '/virtualhome-remote/download/' . $downloadcode->virtualhomemodel_id);
+    //         $w->header($linkto, true);
+    //         die;
+    //         //echo $linkto;
+    //     }
+    // } //555361
+    $downloadWinodw = config::get('virtualhome.download_window');
+    $timenow = time();
+    $timeSinceGenerated = $downloadcode->dt_generated;
+    if ($downloadcode->code == $downloadcode->code) 
+    {
+        if ($timeSinceGenerated < $timenow){
+            $timeSinceGenerated =  $timenow - $timeSinceGenerated;
+            if ($timeSinceGenerated > $downloadWinodw ) {
+                $w->error('Too Late ', '/virtualhome');
+             } else {
+                list($id) = $w->pathMatch();
 
-
-    
-
-    
-
-    // Create a new DateTime object in the UTC format
-    
-    
-
-    // Convert the DateTime object to the timezone of Tallinn
-
-   //$datetime->setTimezone($australiaTZ);
-
-    // Display the result in the YYYY-MM-DD HH:MM:SS format
-
-   
-    
-
-    die;
-
-    //$TestDate = new DateTime($downloadcode->dt_generated); 
-    //echo $TestDate->format('Y-m-d H:i:s');
-    
-
-    // check dt_generated 
-    //echo out how long ago it was made
-    // 6 hour duration
-
-    // get the attachment using the id from the downloadcode object
-  
-    
-    //echo $attachment->id; // test
-    
-    //
-    
-
-   
-   
-  
-    
-
-
-
-
-    
-
-
-
-
-    
- 
-
-    //echo("hello");
-
-
-
-
-
-
+                $attachment = FileService::getInstance($w)->getAttachment($downloadcode->virtualhomemodel_id); // 
+                if (!empty($attachment) && $attachment->exists()) {
+                
+                
+                    $attachment->writeOut();
+                } else {
+                $w->header("HTTP/1.1 404 Not Found");
+                $w->notFoundPage();
+                }
+        }
+        
+    }
+    }
 
 }
 
-function timetostr() {
 
-}
 ?>

@@ -37,8 +37,9 @@ use Html\Form\InputField\Date;
     $message = 'Here is your code ';
     echo($message);
     
-    $code = random_int(100000, 999999);
-    echo $code;
+    $code = random_int(100, 999);
+    $randomNumOne = random_int(1, 9);
+    $randomNum2 = random_int(10, 99);
 
 
 
@@ -48,13 +49,22 @@ use Html\Form\InputField\Date;
 
     
     //GETDATE()
-    
+     $codePlusId = $downloadcode->virtualhomemodel_id;
      $dt_object =  new DateTime("UTC"); //dt_generated gettimeofday(true)
+     $numlength = mb_strlen($codePlusId);
     
+    if ($numlength == 1) {
+        $codePlusId = $randomNum2 . $downloadcode->virtualhomemodel_id;
+    }  
+    else if ($numlength != 3) { // check if model id has 3 digits if not then add 0
+        $codePlusId = $randomNumOne . $downloadcode->virtualhomemodel_id;
+    }
+       
+     echo $code . $codePlusId;
     
     //$dt_object = $downloadcode->dt_generated->DateTime("Y-m-d H:i:s");
     // 'Y-m-d H:i:s'
-    $downloadcode->code = $code;
+    $downloadcode->code = $code . $codePlusId;
     $downloadcode->dt_generated = $dt_object->format("Y-m-d H:i:s");
     $downloadcode->insertOrUpdate();
     //echo "<br>";
