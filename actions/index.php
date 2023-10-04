@@ -2,7 +2,8 @@
 
 function index_ALL(Web $w) {
     $w->ctx("title", "Your Virtual Home");
-    
+    ini_set('post_max_size', '64M');
+    ini_set('upload_max_filesize', '64M');
     $loggedInUser = AuthService::getInstance($w)->User();
     $w->ctx("userId", $loggedInUser->id);
     $userContact = $loggedInUser->getContact();

@@ -47,14 +47,14 @@ function getModel_ALL(Web $w)
     //         //echo $linkto;
     //     }
     // } //555361
-    $downloadWinodw = config::get('virtualhome.download_window');
+    $downloadWindow = config::get('virtualhome.download_window');
     $timenow = time();
     $timeSinceGenerated = $downloadcode->dt_generated;
     if ($downloadcode->code == $downloadcode->code) 
     {
         if ($timeSinceGenerated < $timenow){
             $timeSinceGenerated =  $timenow - $timeSinceGenerated;
-            if ($timeSinceGenerated > $downloadWinodw ) {
+            if ($timeSinceGenerated > $downloadWindow ) {
                 $w->error('Too Late ', '/virtualhome');
              } else {
                 list($id) = $w->pathMatch();

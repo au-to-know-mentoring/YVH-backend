@@ -13,7 +13,7 @@
                 </label>
                 <label style="font-size: 18px;">Client Name
                     <input type="text" id="description" v-model="description" />
-                </label><br>
+                 </label> <!--<br>
                 <div v-if="can_restrict == 'true'">
                             <label class="cmfive__checkbox-container">Restricted
                                 <input type="checkbox" v-model="is_restricted">
@@ -30,7 +30,7 @@
                                 </ul>
                             </div>
                         </div> 
-            </div><br>
+            </div><br> -->
             <button class="small" style="margin-bottom: 0rem;" @click="uploadFile()">Save</button>
         </form>
     </div>
@@ -46,7 +46,7 @@
                         description: null,
                         file: null,
                         is_restricted: false,
-                        max_upload_size: "<?php echo FileService::getInstance($w)->getMaxFileUploadSize() ?: (2 * 1024 * 1024); ?>",
+                        max_upload_size: "<?php echo FileService::getInstance($w)->getMaxFileUploadSize() ?: ( 2 * 1024 * 1024);?>",
                         class: "<?php echo $class; ?>",
                         class_id: "<?php echo $class_id; ?>",
                         redirect_url: "<?php echo $redirect_url; ?>",
@@ -57,22 +57,23 @@
                     
                     prepareFile: function() {
                         this.file = this.$refs.file.files[0];
-                        console.log("hi 1");
+                        
                     },
                     
                     uploadFile: function() {
-                        console.log("Here");
+                        
                         if (this.file === null) {
                             new Toast("No file selected").show();
                             return;
                         }
-                        console.log("hi 2");
+                        
                         if (this.file.size > this.max_upload_size) {
                             console.log(this.file.size);
+                            console.log(this.max_upload_size);
                             new Toast("File size is too large").show();
                             return;
                         }
-                        console.log("hi 3");
+                       
                         toggleModalLoading();
 
                         var file_data = {
@@ -85,7 +86,7 @@
                                 return viewer.can_view;
                             })
                         };
-                        console.log("hi 4");
+                        
                         var form_data = new FormData(); 
                         form_data.append("file", this.file);
                         form_data.append("file_data", JSON.stringify(file_data));
@@ -106,17 +107,18 @@
                         ).then(function(response) {
                             console.log(form_data);
                             window.history.go();
-                            console.log("hi 6");
+                           
                             
                         }).catch(function(error) {
-                            new Toast("Failed to upload file").show();
                             console.log(error);
+                            new Toast("Failed to upload file").show();
+                            
                         }).finally(function() {
                             hideModalLoading();
                             
-                            console.log("hi 7");
+                            
                         });
-                        //console.log("END");
+                        
                         
                     }
                     
