@@ -31,8 +31,8 @@ function index_ALL(Web $w) {
             $actions[] = Html::box('/virtualhome/getCode/' . $attachment->id, 'Generate Code',  true);
             $actions[] = Html::b('/virtualhome-remote/delete/' . $attachment->id, 'Delete', 'Are you sure you want to Delete this model?', null, false, 'warning');
             
-            $actions[] = html::b('/virtualhome-remote/getModel/' . $attachment->virtualhome_id, 'Get Model');
-            $actions[] = html::b('/virtualhome-remote/download/' . $attachment->id, 'Download');
+            // $actions[] = html::b('/virtualhome-remote/getModel/' . $attachment->virtualhome_id, 'Get Model');
+            // $actions[] = html::b('/virtualhome-remote/download/' . $attachment->id, 'Download');
            
             //$actions[] = html::box('/school/getSchoolCode/' . $attachment->id, 'Get Code');
             
