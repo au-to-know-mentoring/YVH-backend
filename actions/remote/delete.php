@@ -15,12 +15,7 @@ function delete_GET(Web $w) {
 
 	$attachment->delete();
     $w->msg("Attachment deleted", '/virtualhome');
-    //$w->ctx('redirect_url', '/virtualhome/index');
-    
-    
-	//$w->msg("Attachment deleted");
-    
-    
+       
 }
 
 

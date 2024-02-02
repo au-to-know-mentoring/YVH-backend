@@ -6,10 +6,8 @@ function addModel_GET(Web $w) {
     $loggedInUser = AuthService::getInstance($w)->User();
     $w->ctx("userId", $loggedInUser->id);
     $userContact = $loggedInUser->getContact();
-    
 
     $w->ctx('title','Hello ' . $userContact->getFullName());
-    
     
 
     $form = [
@@ -27,14 +25,8 @@ function addModel_GET(Web $w) {
     $w->ctx('class', 'User');
     $w->ctx('class_id', $loggedInUser->id);
 
-   
-
     $w->ctx('redirect_url', '/virtualhome/index');
 
-   
-    
-    
-    
 }
 
 

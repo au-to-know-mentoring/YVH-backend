@@ -11,8 +11,6 @@ class VirtualhomeService extends DbService {
 
     public function getCodeObjectForCode($code) {
         return $this->getObject('VirtualhomeDownloadCode', ['is_deleted'=>0, 'code'=>$code]);
-        
-
     }
     public function getId($id)
     {
@@ -23,6 +21,11 @@ class VirtualhomeService extends DbService {
     {
         return $this->getObject("VirtualhomeDownloadCode", ['is_deleted'=>0, 'attachment_id'=>$attachment_id]);
     }
+    public function getModelIDname($client_name)
+    {
+        return $this->getObject("VirtualhomeModel", ["client_name"=>$client_name]);
+    }
+   
   
     // public function getCodeForObjectTest($dt_generated) {
     //     return $this->getObject('VirtualhomeDownloadCode', ['is_deleted'=>0, 'dt_generated'=>$dt_generated]);

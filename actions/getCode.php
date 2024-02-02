@@ -16,7 +16,7 @@ use Html\Form\InputField\Date;
     }
     // get logged in user
     // check attachment object id == loged in user id
-    //
+    
     $user = AuthService::getInstance($w)->user();
 
     if ($user->id != $attachment->parent_id) {
@@ -28,65 +28,45 @@ use Html\Form\InputField\Date;
         $downloadcode = new VirtualhomeDownloadCode($w);
         $downloadcode->virtualhomemodel_id = $attachment->id;
     }
-
-
-   
-    
-    
-
-    $message = 'Here is your code ';
-    echo($message);
-    
-    $code = random_int(100, 999);
-    $randomNumOne = random_int(1, 9);
-    $randomNum2 = random_int(10, 99);
-
-
-
-
-    
-
-
-    
-    //GETDATE()
-     $codePlusId = $downloadcode->virtualhomemodel_id;
-     $dt_object =  new DateTime("UTC"); //dt_generated gettimeofday(true)
-     $numlength = mb_strlen($codePlusId);
-    
-    if ($numlength == 1) {
-        $codePlusId = $randomNum2 . $downloadcode->virtualhomemodel_id;
-    }  
-    else if ($numlength != 3) { // check if model id has 3 digits if not then add 0
-        $codePlusId = $randomNumOne . $downloadcode->virtualhomemodel_id;
+    function FixLength(int $fixInt){
+        if ($fixInt == 1){
+            $fixInt = random_int(1, 9);
+            
+        }elseif ($fixInt == 2){
+            $fixInt = random_int(10, 99);
+           
+        }elseif ($fixInt == 3){
+          $fixInt = random_int(100, 999);
+           
+        }elseif ($fixInt == 4){
+            $fixInt = random_int(1000, 9999);
+            
+        }elseif ($fixInt == 5){
+            $fixInt = random_int(10000, 99999);
+        }
+        return $fixInt;
     }
-       
-     echo $code . $codePlusId;
+
+    $codePlusId = $downloadcode->virtualhomemodel_id;
+    $numlength = mb_strlen($codePlusId);
+    if ($numlength != 6) {  // makes sure that we get a 6-digit code whilst also keeping the virtualhomemodel_id
+
+       $DigitOffset = 6 - mb_strlen($codePlusId);
+
+       $codePlusId = (string)$codePlusId . (string)FixLength($DigitOffset); 
+    }
+   
     
-    //$dt_object = $downloadcode->dt_generated->DateTime("Y-m-d H:i:s");
-    // 'Y-m-d H:i:s'
-    $downloadcode->code = $code . $codePlusId;
+    $message = 'Here is your code ';
+    echo $message . $codePlusId;
+    
+     
+    $downloadcode->code = $codePlusId;
+
+    $dt_object =  new DateTime("UTC"); 
     $downloadcode->dt_generated = $dt_object->format("Y-m-d H:i:s");
+
     $downloadcode->insertOrUpdate();
-    //echo "<br>";
-  
-    
-    //$downloadcode->dt_generated = $dt_object->date("Y-m-d H:i:s");
-
-    
-   
-   
-
-    
-        
-    
-    //echo "<script>
-    //{$code};
-    //</script>"; // working dbug
-    
 }
-
-
-   
-
 ?>
 
