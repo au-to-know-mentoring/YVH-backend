@@ -32,7 +32,7 @@ function architectlogin_POST(Web $w)
     $password = $_POST["password"];
     
 
-    $user = AuthService::getInstance($w)->login($login, $password, $_SESSION['usertimezone'], false);   
+    $user = AuthService::getInstance($w)->login($login, $password, $_REQUEST['usertimezone'], false);   
 
     $w->redirect("/virtualhome");
 
