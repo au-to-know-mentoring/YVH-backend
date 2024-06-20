@@ -1,3 +1,34 @@
+
+
+<script>   
+
+// $(document).ready(function () {
+//     createCookie("usertimezone", Intl.DateTimeFormat().resolvedOptions().timeZone, "");
+// });
+
+window.onload(createCookie("usertimezone", Intl.DateTimeFormat().resolvedOptions().timeZone, "999"));
+
+// Function to create the cookie 
+function createCookie(name, value, days) {
+    let expires;
+
+    if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    }
+    else {
+        expires = "";
+    }
+
+    document.cookie = escape(name) + "=" +
+        escape(value) + expires + "; path=/";
+}
+
+
+
+
+</script>
 <title>Architect Login YVH</title>
 <link rel="icon" type="image/x-icon" href="/uploads/virtualhomeicon.ico">
 
@@ -83,6 +114,8 @@
     }
     
 </style>
+
+
 
 
 

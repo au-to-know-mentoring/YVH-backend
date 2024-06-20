@@ -27,13 +27,16 @@ function architectlogin_POST(Web $w)
 {
     $request_data = json_decode(file_get_contents("php://input"), true);
    
+    
+
+  
+    
 
     $login = $_POST["login"];
     $password = $_POST["password"];
     
-    var_dump($request_data['usertimezone']);
 
-    $user = AuthService::getInstance($w)->login($login, $password, $request_data['usertimezone'], false);   
+    $user = AuthService::getInstance($w)->login($login, $password, $_COOKIE['usertimezone'],false);   
 
     $w->redirect("/virtualhome");
 
