@@ -22,7 +22,8 @@ function getModel_ALL(Web $w)
     $timenow = new DateTime('utc');
     
     $timeSinceGenerated = $downloadcode->dt_generated->format('h') - $timenow->format('h');
-    var_dump($timeSinceGenerated); die;
+    
+    var_dump(date_diff($downloadcode->dt_generated, $timenow)); die;
 
     // $timeSinceGenerated = $downloadcode->dt_generated;
     if ($downloadcode->code == $downloadcode->code) 
