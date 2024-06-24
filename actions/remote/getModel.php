@@ -19,21 +19,15 @@ function getModel_ALL(Web $w)
     }
 
     $downloadWindow = config::get('virtualhome.download_window');
-    $timenow = new DateTime('utc');
+    $timenow = new DateTime('now', new DateTimeZone('utc'));
     
-    $timeSinceGenerated = $downloadcode->dt_generated->format('h') - $timenow->format('h');
-    var_dump($downloadcode->dt_generated->format('h'));
-    var_dump($timenow->format('h'));
-    var_dump($timeSinceGenerated); die;
+    $dt_EndOfGenCode = $downloadcode->dt_generated->modify("+" . $downloadWindow . "hour");
+    
 
     // $timeSinceGenerated = $downloadcode->dt_generated;
     if ($downloadcode->code == $downloadcode->code) 
     {
-        
-        if ($timeSinceGenerated < 2)
-        {
-            
-            if ($timeSinceGenerated < $downloadWindow) 
+            if ($downloadcode->dt_generated < $dt_EndOfGenCode) 
             {
                 $w->error('Too Late ', '/virtualhome');
             } else 
@@ -50,7 +44,7 @@ function getModel_ALL(Web $w)
                 }
             }
         
-        }
+        
     }
 
 
