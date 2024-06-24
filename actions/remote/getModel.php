@@ -22,17 +22,18 @@ function getModel_ALL(Web $w)
     $timenow = new DateTime('utc');
     
     $timeSinceGenerated = $downloadcode->dt_generated->format('h') - $timenow->format('h');
-    
-    var_dump(date_diff($timenow, $downloadcode->dt_generated)); die;
+    var_dump($downloadcode->dt_generated->format('h'));
+    var_dump($timenow->format('h'));
+    var_dump($timeSinceGenerated); die;
 
     // $timeSinceGenerated = $downloadcode->dt_generated;
     if ($downloadcode->code == $downloadcode->code) 
     {
         
-        if ($timeSinceGenerated > 2)
+        if ($timeSinceGenerated < 2)
         {
             
-            if ($timeSinceGenerated > $downloadWindow ) 
+            if ($timeSinceGenerated < $downloadWindow) 
             {
                 $w->error('Too Late ', '/virtualhome');
             } else 
