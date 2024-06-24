@@ -64,7 +64,7 @@ use Html\Form\InputField\Date;
     $downloadcode->code = $codePlusId;
 
     $dt_object =  new DateTime("UTC"); 
-    $downloadcode->dt_generated = $dt_object->format("Y-m-d H:i:s");
+    $downloadcode->dt_generated = $dt_object;
 
     $downloadcode->insertOrUpdate();
 }
