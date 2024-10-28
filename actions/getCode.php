@@ -1,59 +1,72 @@
 
 <?php
-  
+
+use Html\Form\InputField\Date;
+
  function getCode_ALL(Web $w) {
-    function printCode() {
 
-        $user_id = rand(10,99);        // makes random number from variable
-        $attachment_id = rand(10,99);
-        $dt_created = rand(10,99);
-    
-    
-         $message = 'Here is your code ';
-         echo($message);
-    
-    
-        $string1 = (rand($user_id , $user_id));   // takes the random number and echo's it
-        echo $string1;
-        $string2 = (rand($attachment_id, $attachment_id));
-        echo $string2;
-        $string3 = (rand($dt_created, $dt_created));
-        echo $string3;
-    
-        return $string1.$string2.$string3;
-        
+    $p = $w->pathMatch('attachment_id');
+    if (empty($p['attachment_id'])) {
+        $w->error('No model Id found ', '/virtualhome');
     }
-    printCode();
-    //echo "<script>
-    //{$code};
-    //</script>"; // working dbug
+
+    $attachment = FileService::getInstance($w)->getAttachment($p['attachment_id']);
+    if (empty($attachment)) {
+        $w->error('no model found for id', '/virtualhome');
+    }
+    // get logged in user
+    // check attachment object id == loged in user id
     
-}
+    $user = AuthService::getInstance($w)->user();
 
+    if ($user->id != $attachment->parent_id) {
+        $w->error("This model doesn't belong to you", '/virtualhome');
+    }
 
-    function getCode_POST(web $w) {
+    $downloadcode = VirtualhomeService::getInstance($w)->getCodeForAttachmentId($attachment->id);
+    if (empty($downloadcode)) {
+        $downloadcode = new VirtualhomeDownloadCode($w);
+        $downloadcode->virtualhomemodel_id = $attachment->id;
+    }
+    function FixLength(int $fixInt){
+        if ($fixInt == 1){
+            $fixInt = random_int(1, 9);
+            
+        }elseif ($fixInt == 2){
+            $fixInt = random_int(10, 99);
+           
+        }elseif ($fixInt == 3){
+          $fixInt = random_int(100, 999);
+           
+        }elseif ($fixInt == 4){
+            $fixInt = random_int(1000, 9999);
+            
+        }elseif ($fixInt == 5){
+            $fixInt = random_int(10000, 99999);
+        }
+        return $fixInt;
+    }
 
-        echo $GLOBALS['a'];
+    $codePlusId = $downloadcode->virtualhomemodel_id;
+    $numlength = mb_strlen($codePlusId);
+    if ($numlength != 6) {  // makes sure that we get a 6-digit code whilst also keeping the virtualhomemodel_id
 
+       $DigitOffset = 6 - mb_strlen($codePlusId);
 
-
+       $codePlusId = (string)$codePlusId . (string)FixLength($DigitOffset); 
+    }
    
-	
-        $task = (!empty($p["id"]) ? VirtualhomeDownloadCode::getInstance($w)->getCode($p["id"]) : new VirtualhomeDownloadCode($w));
     
-        $p = $w->pathMatch("id");
-        $task = new Task($w);  
+    $message = 'Here is your code ';
+    echo $message . $codePlusId;
     
-        //$task->fill($_POST); ///broken
-  
-        $task->insertOrUpdate(true); // broken
+     
+    $downloadcode->code = $codePlusId;
 
-    
-      
-    
+    $dt_object =  new DateTime("UTC"); 
+    $downloadcode->dt_generated = $dt_object;
 
- 
-    }
-
+    $downloadcode->insertOrUpdate();
+}
 ?>
 

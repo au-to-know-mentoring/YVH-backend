@@ -2,6 +2,35 @@
 
 class VirtualhomeService extends DbService {
 
+    public function getCodeForAttachmentId($attachment_id)
+    {
+        
+
+        return $this->getObject('VirtualhomeDownloadCode',  ['is_deleted'=>0, 'virtualhomemodel_id'=>$attachment_id]);
+    }
+
+    public function getCodeObjectForCode($code) {
+        return $this->getObject('VirtualhomeDownloadCode', ['is_deleted'=>0, 'code'=>$code]);
+    }
+    public function getId($id)
+    {
+        return $this->getObject("VirtualhomeDownloadCode", $id);
+        //return $this->getObject("VirtualhomeModel", ['is_deleted'=>0, 'attachment_id'=>$id]);
+    }
+    public function getModelID($attachment_id)
+    {
+        return $this->getObject("VirtualhomeDownloadCode", ['is_deleted'=>0, 'attachment_id'=>$attachment_id]);
+    }
+    public function getModelIDname($client_name)
+    {
+        return $this->getObject("VirtualhomeModel", ["client_name"=>$client_name]);
+    }
+   
+  
+    // public function getCodeForObjectTest($dt_generated) {
+    //     return $this->getObject('VirtualhomeDownloadCode', ['is_deleted'=>0, 'dt_generated'=>$dt_generated]);
+    // }
+
 
 
 
@@ -25,10 +54,5 @@ class VirtualhomeService extends DbService {
         $w->ctx("navigation", $nav);
         return $nav;
     }
-    public function getCode($where = [])
-    {
-        $where["is_deleted"] = 0;
-
-        return $this->getObjects("Code", $where);
-    }
+   
 }

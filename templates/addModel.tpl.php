@@ -13,8 +13,8 @@
                 </label>
                 <label style="font-size: 18px;">Client Name
                     <input type="text" id="description" v-model="description" />
-                </label><br>
-                <!-- <div v-if="can_restrict == 'true'">
+                 </label> <!--<br>
+                <div v-if="can_restrict == 'true'">
                             <label class="cmfive__checkbox-container">Restricted
                                 <input type="checkbox" v-model="is_restricted">
                                 <span class="cmfive__checkbox-checkmark"></span>
@@ -29,8 +29,8 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div> -->
-            </div><br>
+                        </div> 
+            </div><br> -->
             <button class="small" style="margin-bottom: 0rem;" @click="uploadFile()">Save</button>
         </form>
     </div>
@@ -46,29 +46,34 @@
                         description: null,
                         file: null,
                         is_restricted: false,
-                        max_upload_size: "<?php echo FileService::getInstance($w)->getMaxFileUploadSize() ?: (2 * 1024 * 1024); ?>",
+                        max_upload_size: "<?php echo FileService::getInstance($w)->getMaxFileUploadSize() ?: ( 2 * 1024 * 1024);?>",
                         class: "<?php echo $class; ?>",
                         class_id: "<?php echo $class_id; ?>",
                         redirect_url: "<?php echo $redirect_url; ?>",
                     }
+                    
                 },
                 methods: {
+                    
                     prepareFile: function() {
                         this.file = this.$refs.file.files[0];
+                        
                     },
+                    
                     uploadFile: function() {
-                        console.log("Here");
+                        
                         if (this.file === null) {
                             new Toast("No file selected").show();
                             return;
                         }
-
+                        
                         if (this.file.size > this.max_upload_size) {
                             console.log(this.file.size);
+                            console.log(this.max_upload_size);
                             new Toast("File size is too large").show();
                             return;
                         }
-
+                       
                         toggleModalLoading();
 
                         var file_data = {
@@ -81,28 +86,43 @@
                                 return viewer.can_view;
                             })
                         };
-
-                        var form_data = new FormData();
+                        
+                        var form_data = new FormData(); 
                         form_data.append("file", this.file);
                         form_data.append("file_data", JSON.stringify(file_data));
-
-                        axios.post("/file-attachment/ajaxAddAttachment",
+                        console.log(file_data);
+                        
+                        
+                        //console.log(testHellol);
+                        
+                        
+                        
+                        ///system/templates/js/es6-promise.auto.js
+                        axios.post("/file-attachment/ajaxAddAttachment", 
                             form_data, {
                                 headers: {
                                     "Content-Type": "multipart/form-data"
                                 }
                             }
                         ).then(function(response) {
-                            console.log("Here");
+                            console.log(form_data);
                             window.history.go();
+                           
+                            
                         }).catch(function(error) {
-                            new Toast("Failed to upload file").show();
                             console.log(error);
+                            new Toast("Failed to upload file").show();
+                            
                         }).finally(function() {
                             hideModalLoading();
+                            
+                            
                         });
                         
+                        
                     }
+                    
                 }
+                
             });
         </script>

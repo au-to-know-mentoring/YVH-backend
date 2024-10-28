@@ -15,13 +15,11 @@ class VirtualhomeDownloadCode extends CmfiveMigration
                 "id" => false,
                 "primary_key" => "id"
             ])->addColumn($column)
-              ->addColumn('user_id', 'biginteger')
-              ->addColumn('name', 'string')
-              ->addColumn('client_name', 'string')
-              ->addColumn('attachment_id', 'biginteger')
+              ->addColumn('virtualhomemodel_id', 'biginteger') // user_id
               ->addColumn('code', 'string')
-              ->addColumn('dt_generated', 'datetime')
-              ->addTimestamps()
+              //->addColumn('dt_generated', 'datetime')
+              ->addTimestamps('dt_generated', 'time')
+              ->addCmfiveParameters()
               ->create();
         }
        // $this->hasTable("virtualhome_download_code") && !$this->table("virtualhome_download_code")->hasColumn("code");

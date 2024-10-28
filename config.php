@@ -7,4 +7,5 @@ Config::set('virtualhome', [
         'core_dbobject',
         'core_web'
     ],
+    'download_window' => 2, // in seconds 
 ]);
